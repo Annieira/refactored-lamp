@@ -6,7 +6,8 @@ A free, installable Progressive Web App (PWA) starter for Android.
 - `index.html` — the app
 - `manifest.webmanifest` — app name, icon and install settings
 - `sw.js` — offline cache
-- `icons/` — app icons
+- `icons/` — app icons (192px, 512px, maskable 512px, Apple touch icon and SVG source)
+- `netlify.toml` — publish settings and cache headers so app updates reach installed devices
 
 ## Publish for free
 1. Create a free GitHub account at https://github.com/ if you don't have one.
@@ -24,4 +25,6 @@ A PWA install prompt and service worker require HTTPS or localhost. Opening `ind
 - Favourites are saved locally in that browser/device using local storage.
 - The daily quote changes by calendar date.
 - This starter does not yet send notifications or sync favourites between devices.
+- Every quote can be saved, copied or shared; on Android, sharing opens the native share sheet.
+- After the first visit the whole app works offline, and Chrome shows an **Install app** button in the header when installation is available.
 - No paid API, database, or backend is required for this first version.

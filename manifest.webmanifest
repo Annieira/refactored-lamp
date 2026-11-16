@@ -1,26 +1,21 @@
 {
   "id": "./",
-  "name": "DAILY DOSE \u2014 Daily Quotes",
+  "name": "DAILY DOSE — Daily Quotes",
   "short_name": "DAILY DOSE",
-  "description": "One thought. One day. A stronger mind.",
+  "description": "One thought. One day. A stronger mind. A daily philosophical quote for discipline, resilience and personal growth.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#101010",
-  "theme_color": "#101010",
+  "background_color": "#0b0b0a",
+  "theme_color": "#0b0b0a",
   "orientation": "portrait",
+  "categories": ["lifestyle", "books", "education"],
   "icons": [
-    {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }
