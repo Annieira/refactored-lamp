@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101010">
+<meta name="description" content="One thought. One day. A stronger mind.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<title>DAILY DOSE</title>
+<style>
+:root{color-scheme:dark;--bg:#101010;--card:#1b1b19;--ink:#f4f0e8;--muted:#aaa397;--line:#39362f;--gold:#d8c7a2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+main{width:min(850px,92vw);margin:auto;padding:24px 0 55px}
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:8px 0 20px}
+.logo{font-weight:850;letter-spacing:.2em;font-size:14px}.logo span{color:var(--gold)}
+.date,.eyebrow,.category,.author,.tiny{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.hero{padding:54px 0 28px}.eyebrow{color:var(--gold);font-weight:700}
+h1{font-size:clamp(44px,9vw,76px);line-height:.96;letter-spacing:-.06em;margin:15px 0}
+.intro{color:var(--muted);font-size:14px}
+.feature{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#22221f,#171716);padding:clamp(25px,6vw,48px);min-height:300px;display:flex;flex-direction:column;justify-content:space-between}
+.quote{font:clamp(29px,5.4vw,45px)/1.2 Georgia,serif;letter-spacing:-.025em;margin:28px 0}
+.actions,.filters{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:11px 15px;border-radius:999px;font-weight:650;font-size:12px;cursor:pointer}
+button.primary{background:var(--gold);border-color:var(--gold);color:#171512}
+button.selected{background:var(--gold);border-color:var(--gold);color:#171512}
+h2{font-size:21px;letter-spacing:-.03em;margin:42px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;flex-direction:column;align-items:flex-start}
+.tile p{font:20px/1.35 Georgia,serif;margin:8px 0 16px}
+.tile button{margin-top:13px;padding:8px 12px}
+.empty{grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:10px;letter-spacing:.1em}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.hero{padding-top:42px}.date{font-size:9px}}
+</style>
+</head>
+<body><main>
+<header><div class="logo">DAILY <span>DOSE.</span></div><div class="date" id="date"></div></header>
+<section class="hero"><div class="eyebrow">A daily reminder to think deeper</div><h1>One thought.<br>One day.</h1><div class="intro">A small dose of perspective for a stronger mind.</div></section>
+<section class="feature" aria-live="polite">
+ <div><div class="category" id="todayCategory">TODAY'S THOUGHT</div><div class="quote" id="todayQuote"></div></div>
+ <div><div class="author" id="todayAuthor"></div><div class="actions"><button class="primary" id="share">Share quote ↗</button><button id="copy">Copy text</button><button id="saveToday">♡ Save</button></div></div>
+</section>
+<h2>Explore thoughts</h2><div class="filters" id="filters"></div><div class="grid" id="quotes"></div>
+<h2>Your saved quotes <span class="tiny" id="count"></span></h2><div class="grid" id="saved"></div>
+<footer>DAILY DOSE. &nbsp;·&nbsp; MADE FOR A MOMENT OF CLARITY.</footer>
+</main>
+<script>
+const data=[
+["Discipline is choosing what you want most over what you want now.","Discipline"],
+["You do not need to control the storm. Learn how to steer.","Resilience"],
+["A quiet mind can make a difficult road feel navigable.","Mindset"],
+["Do the work when applause is absent. That is where character is built.","Discipline"],
+["Your attention is your life in small pieces. Spend it deliberately.","Mindset"],
+["The strongest response is sometimes the one you choose not to make.","Stoicism"],
+["You cannot edit yesterday, but you can decide what today becomes.","Life"],
+["Let your standards be louder than your excuses.","Discipline"],
+["A setback is information, not an identity.","Resilience"],
+["Be curious about the truth, even when it challenges your comfort.","Wisdom"],
+["What you practise in private eventually shapes what you become in public.","Discipline"],
+["Do not confuse movement with progress. Give your effort a direction.","Success"],
+["Peace grows when you stop demanding that everything obey your plans.","Stoicism"],
+["The mind becomes stronger by returning to what matters.","Mindset"],
+["A meaningful life is built from ordinary days used well.","Life"],
+["Courage is action with fear beside you.","Courage"],
+["Choose the difficult habit that makes tomorrow lighter.","Discipline"],
+["You are allowed to begin again without explaining the past.","Resilience"],
+["Wisdom starts when certainty makes room for questions.","Wisdom"],
+["Build a life that does not require constant escape from it.","Life"],
+["Success without direction is just a faster way to get lost.","Success"],
+["Your thoughts are visitors. You decide which ones get a room.","Stoicism"],
+["Protect your focus as carefully as you protect your time.","Mindset"],
+["The work may be slow. Let your commitment be steady.","Resilience"],
+["Do not wait to feel ready. Let action teach you readiness.","Courage"],
+["A boundary is a promise to yourself about what you will protect.","Wisdom"],
+["Small promises kept to yourself create self-trust.","Discipline"],
+["You cannot choose every circumstance, but you can train your response.","Stoicism"],
+["Make room for progress, not perfection.","Life"],
+["Become someone your future self can rely on.","Success"]
+];
+const categories=["All",...new Set(data.map(q=>q[1]))];
+const $=id=>document.getElementById(id);
+const now=new Date(), day=Math.floor(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())/86400000);
+const today=data[((day%data.length)+data.length)%data.length];
+let selected="All",saved=JSON.parse(localStorage.getItem("dd-saved")||"[]");
+$("date").textContent=new Intl.DateTimeFormat(undefined,{weekday:"long",day:"numeric",month:"long"}).format(now);
+const isSaved=q=>saved.includes(q[0]);
+function renderToday(){ $("todayQuote").textContent="“"+today[0]+"”";$("todayCategory").textContent="TODAY'S THOUGHT · "+today[1];$("todayAuthor").textContent="— DAILY DOSE";$("saveToday").textContent=isSaved(today)?"♥ Saved":"♡ Save";}
+function persist(){localStorage.setItem("dd-saved",JSON.stringify(saved));renderToday();renderSaved();renderQuotes();}
+function tile(q){const a=document.createElement("article");a.className="tile";const c=document.createElement("small");c.className="category";c.textContent=q[1];const p=document.createElement("p");p.textContent="“"+q[0]+"”";const b=document.createElement("button");b.textContent=isSaved(q)?"♥ Saved":"♡ Save";b.onclick=()=>{saved=isSaved(q)?saved.filter(x=>x!==q[0]):[...saved,q[0]];persist()};a.append(c,p,b);return a}
+function renderQuotes(){const arr=data.filter(q=>selected==="All"||q[1]===selected);$("quotes").replaceChildren(...arr.map(tile));document.querySelectorAll(".filters button").forEach(b=>b.classList.toggle("selected",b.textContent===selected))}
+function renderSaved(){$("count").textContent="("+saved.length+")";const arr=data.filter(q=>isSaved(q));$("saved").replaceChildren(...(arr.length?arr.map(tile):[Object.assign(document.createElement("div"),{className:"empty",textContent:"No saved quotes yet. Save a thought that speaks to you."})]))}
+categories.forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>{selected=c;renderQuotes()};$("filters").append(b)});
+$("saveToday").onclick=()=>{saved=isSaved(today)?saved.filter(x=>x!==today[0]):[...saved,today[0]];persist()};
+function shareText(){return "“"+today[0]+"” — DAILY DOSE"}
+$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(shareText());$("copy").textContent="Copied ✓";setTimeout(()=>$("copy").textContent="Copy text",1400)}catch(e){alert(shareText())}};
+$("share").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"DAILY DOSE",text:shareText()})}catch(e){}}else{$("copy").click()}};
+renderToday();renderQuotes();renderSaved();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
+</script>
+</body></html>
