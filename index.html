@@ -3,49 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101010">
+<meta name="theme-color" content="#0b0b0a">
 <meta name="description" content="One thought. One day. A stronger mind.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="DAILY DOSE">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icons/icon-192.png">
-<title>DAILY DOSE</title>
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<title>DAILY DOSE — One thought. One day. A stronger mind.</title>
 <style>
-:root{color-scheme:dark;--bg:#101010;--card:#1b1b19;--ink:#f4f0e8;--muted:#aaa397;--line:#39362f;--gold:#d8c7a2}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-main{width:min(850px,92vw);margin:auto;padding:24px 0 55px}
-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:8px 0 20px}
+:root{color-scheme:dark;--bg:#0b0b0a;--card:#131311;--ink:#ebdfc8;--muted:#9a9080;--line:#2b2924;--gold:#d6c29c;--dark:#14120e}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+main{width:min(850px,92vw);margin:auto;padding:16px 0 55px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0 16px}
 .logo{font-weight:850;letter-spacing:.2em;font-size:14px}.logo span{color:var(--gold)}
-.date,.eyebrow,.category,.author,.tiny{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-.hero{padding:54px 0 28px}.eyebrow{color:var(--gold);font-weight:700}
-h1{font-size:clamp(44px,9vw,76px);line-height:.96;letter-spacing:-.06em;margin:15px 0}
-.intro{color:var(--muted);font-size:14px}
-.feature{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#22221f,#171716);padding:clamp(25px,6vw,48px);min-height:300px;display:flex;flex-direction:column;justify-content:space-between}
-.quote{font:clamp(29px,5.4vw,45px)/1.2 Georgia,serif;letter-spacing:-.025em;margin:28px 0}
+.meta{display:flex;align-items:center;gap:12px}
+.date,.eyebrow,.category,.author,.tiny,.status{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.status{color:var(--gold)}
+nav{position:sticky;top:0;z-index:5;display:flex;gap:4px;padding:10px 0;background:rgba(11,11,10,.94);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+nav a{flex:1;text-align:center;color:var(--muted);text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 6px;border-radius:999px}
+nav a:hover,nav a.active{color:var(--ink);background:var(--card)}
+section,h2{scroll-margin-top:72px}
+.hero{padding:52px 0 30px}.eyebrow{color:var(--gold);font-weight:700}
+h1{font-size:clamp(42px,9vw,76px);line-height:.98;letter-spacing:-.055em;margin:15px 0;font-weight:800}
+h1 em{font:italic 400 1em/1 Georgia,"Times New Roman",serif;letter-spacing:-.03em;color:var(--gold)}
+.intro{color:var(--muted);font-size:14px;line-height:1.5}
+.feature{border:1px solid var(--line);border-radius:22px;background:var(--card);padding:clamp(25px,6vw,48px);min-height:300px;display:flex;flex-direction:column;justify-content:space-between}
+.quote{font:clamp(29px,5.4vw,45px)/1.2 Georgia,"Times New Roman",serif;letter-spacing:-.025em;margin:28px 0}
 .actions,.filters{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:11px 15px;border-radius:999px;font-weight:650;font-size:12px;cursor:pointer}
-button.primary{background:var(--gold);border-color:var(--gold);color:#171512}
-button.selected{background:var(--gold);border-color:var(--gold);color:#171512}
-h2{font-size:21px;letter-spacing:-.03em;margin:42px 0 14px}
+.filters{margin:0 0 18px}
+button{font:inherit;border:1px solid var(--line);background:transparent;color:var(--ink);padding:11px 15px;border-radius:999px;font-weight:650;font-size:12px;cursor:pointer;min-height:40px}
+button:hover{border-color:var(--muted)}
+button.primary,button.selected{background:var(--gold);border-color:var(--gold);color:var(--dark)}
+button:focus-visible,nav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#install{padding:7px 12px;min-height:32px;font-size:11px}
+h2{font-size:21px;letter-spacing:-.03em;margin:46px 0 16px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;flex-direction:column;align-items:flex-start}
-.tile p{font:20px/1.35 Georgia,serif;margin:8px 0 16px}
-.tile button{margin-top:13px;padding:8px 12px}
-.empty{grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
-footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:10px;letter-spacing:.1em}
-@media(max-width:560px){.grid{grid-template-columns:1fr}.hero{padding-top:42px}.date{font-size:9px}}
+.tile p{font:20px/1.35 Georgia,"Times New Roman",serif;margin:8px 0 10px;flex:1}
+.tile .author{font-size:10px}
+.tile .actions{margin-top:14px;gap:6px}
+.tile button{padding:7px 12px;min-height:34px;font-size:11px}
+.empty{grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--gold);color:var(--dark);padding:10px 16px;border-radius:999px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:10px;letter-spacing:.1em;line-height:1.8}
+[hidden]{display:none!important}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.hero{padding-top:40px}.date{font-size:9px}nav a{letter-spacing:.1em}}
 </style>
 </head>
 <body><main>
-<header><div class="logo">DAILY <span>DOSE.</span></div><div class="date" id="date"></div></header>
-<section class="hero"><div class="eyebrow">A daily reminder to think deeper</div><h1>One thought.<br>One day.</h1><div class="intro">A small dose of perspective for a stronger mind.</div></section>
+<header><div class="logo">DAILY <span>DOSE.</span></div><div class="meta"><span class="status" id="offline" hidden>Offline</span><button id="install" hidden>Install app</button><div class="date" id="date"></div></div></header>
+<nav aria-label="Sections"><a href="#today">Today</a><a href="#explore">Explore</a><a href="#savedSection">Saved</a></nav>
+<section class="hero" id="today"><div class="eyebrow">A daily reminder to think deeper</div><h1>One thought.<br>One day.<br><em>A stronger mind.</em></h1><div class="intro">A small dose of perspective for discipline, resilience and personal growth.</div></section>
 <section class="feature" aria-live="polite">
  <div><div class="category" id="todayCategory">TODAY'S THOUGHT</div><div class="quote" id="todayQuote"></div></div>
  <div><div class="author" id="todayAuthor"></div><div class="actions"><button class="primary" id="share">Share quote ↗</button><button id="copy">Copy text</button><button id="saveToday">♡ Save</button></div></div>
 </section>
-<h2>Explore thoughts</h2><div class="filters" id="filters"></div><div class="grid" id="quotes"></div>
-<h2>Your saved quotes <span class="tiny" id="count"></span></h2><div class="grid" id="saved"></div>
-<footer>DAILY DOSE. &nbsp;·&nbsp; MADE FOR A MOMENT OF CLARITY.</footer>
+<section id="explore"><h2>Explore thoughts</h2><div class="filters" id="filters" role="group" aria-label="Filter by category"></div><div class="grid" id="quotes"></div></section>
+<section id="savedSection"><h2>Your saved quotes <span class="tiny" id="count"></span></h2><div class="grid" id="saved"></div></section>
+<footer>DAILY DOSE. &nbsp;·&nbsp; ONE THOUGHT. ONE DAY. A STRONGER MIND.<br>MADE FOR A MOMENT OF CLARITY. WORKS OFFLINE.</footer>
 </main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
+// [quote, category, author?] — quotes without an author are DAILY DOSE originals.
 const data=[
 ["Discipline is choosing what you want most over what you want now.","Discipline"],
 ["You do not need to control the storm. Learn how to steer.","Resilience"],
@@ -76,26 +103,69 @@ const data=[
 ["Small promises kept to yourself create self-trust.","Discipline"],
 ["You cannot choose every circumstance, but you can train your response.","Stoicism"],
 ["Make room for progress, not perfection.","Life"],
-["Become someone your future self can rely on.","Success"]
+["Become someone your future self can rely on.","Success"],
+["We suffer more often in imagination than in reality.","Stoicism","Seneca"],
+["It is not things that disturb us, but our judgements about things.","Stoicism","Epictetus"],
+["The impediment to action advances action. What stands in the way becomes the way.","Stoicism","Marcus Aurelius"],
+["No one is free who is not master of himself.","Discipline","Epictetus"],
+["The happiness of your life depends upon the quality of your thoughts.","Mindset","Marcus Aurelius"],
+["Waste no more time arguing about what a good person should be. Be one.","Mindset","Marcus Aurelius"],
+["Fire tests gold; adversity tests the brave.","Resilience","Seneca"],
+["Well-being is realised by small steps, but is truly no small thing.","Success","Zeno of Citium"],
+["We are what we repeatedly do. Excellence, then, is not an act, but a habit.","Success","Will Durant, on Aristotle"],
+["Life is long, if you know how to use it.","Life","Seneca"],
+["The unexamined life is not worth living.","Wisdom","Socrates"],
+["Knowing others is intelligence; knowing yourself is true wisdom.","Wisdom","Lao Tzu"],
+["It is not because things are difficult that we do not dare; it is because we do not dare that things are difficult.","Courage","Seneca"],
+["Courage is knowing what not to fear.","Courage","Plato"],
+["He who is brave is free.","Courage","Seneca"]
 ];
-const categories=["All",...new Set(data.map(q=>q[1]))];
+const categories=["All","Stoicism","Discipline","Mindset","Resilience","Success","Life","Wisdom","Courage"];
 const $=id=>document.getElementById(id);
 const now=new Date(), day=Math.floor(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())/86400000);
 const today=data[((day%data.length)+data.length)%data.length];
-let selected="All",saved=JSON.parse(localStorage.getItem("dd-saved")||"[]");
+let selected="All",saved=[];
+try{saved=JSON.parse(localStorage.getItem("dd-saved")||"[]");if(!Array.isArray(saved))saved=[]}catch(e){saved=[]}
 $("date").textContent=new Intl.DateTimeFormat(undefined,{weekday:"long",day:"numeric",month:"long"}).format(now);
 const isSaved=q=>saved.includes(q[0]);
-function renderToday(){ $("todayQuote").textContent="“"+today[0]+"”";$("todayCategory").textContent="TODAY'S THOUGHT · "+today[1];$("todayAuthor").textContent="— DAILY DOSE";$("saveToday").textContent=isSaved(today)?"♥ Saved":"♡ Save";}
-function persist(){localStorage.setItem("dd-saved",JSON.stringify(saved));renderToday();renderSaved();renderQuotes();}
-function tile(q){const a=document.createElement("article");a.className="tile";const c=document.createElement("small");c.className="category";c.textContent=q[1];const p=document.createElement("p");p.textContent="“"+q[0]+"”";const b=document.createElement("button");b.textContent=isSaved(q)?"♥ Saved":"♡ Save";b.onclick=()=>{saved=isSaved(q)?saved.filter(x=>x!==q[0]):[...saved,q[0]];persist()};a.append(c,p,b);return a}
-function renderQuotes(){const arr=data.filter(q=>selected==="All"||q[1]===selected);$("quotes").replaceChildren(...arr.map(tile));document.querySelectorAll(".filters button").forEach(b=>b.classList.toggle("selected",b.textContent===selected))}
+const author=q=>q[2]||"Daily Dose";
+function toggleSave(q){saved=isSaved(q)?saved.filter(x=>x!==q[0]):[...saved,q[0]];persist();toast(isSaved(q)?"Saved to favourites":"Removed from favourites")}
+function renderToday(){$("todayQuote").textContent="“"+today[0]+"”";$("todayCategory").textContent="TODAY'S THOUGHT · "+today[1];$("todayAuthor").textContent="— "+author(today);$("saveToday").textContent=isSaved(today)?"♥ Saved":"♡ Save";$("saveToday").setAttribute("aria-pressed",isSaved(today))}
+function persist(){try{localStorage.setItem("dd-saved",JSON.stringify(saved))}catch(e){}renderToday();renderSaved();renderQuotes();}
+function btn(label,fn,cls){const b=document.createElement("button");b.textContent=label;if(cls)b.className=cls;b.onclick=fn;return b}
+function tile(q){const a=document.createElement("article");a.className="tile";const c=document.createElement("small");c.className="category";c.textContent=q[1];const p=document.createElement("p");p.textContent="“"+q[0]+"”";const w=document.createElement("div");w.className="author";w.textContent="— "+author(q);const act=document.createElement("div");act.className="actions";const s=btn(isSaved(q)?"♥ Saved":"♡ Save",()=>toggleSave(q));s.setAttribute("aria-pressed",isSaved(q));act.append(s,btn("Copy",()=>copyQuote(q)),btn("Share ↗",()=>shareQuote(q)));a.append(c,p,w,act);return a}
+function renderQuotes(){const arr=data.filter(q=>selected==="All"||q[1]===selected);$("quotes").replaceChildren(...arr.map(tile));document.querySelectorAll(".filters button").forEach(b=>{const on=b.dataset.cat===selected;b.classList.toggle("selected",on);b.setAttribute("aria-pressed",on)})}
 function renderSaved(){$("count").textContent="("+saved.length+")";const arr=data.filter(q=>isSaved(q));$("saved").replaceChildren(...(arr.length?arr.map(tile):[Object.assign(document.createElement("div"),{className:"empty",textContent:"No saved quotes yet. Save a thought that speaks to you."})]))}
-categories.forEach(c=>{const b=document.createElement("button");b.textContent=c;b.onclick=()=>{selected=c;renderQuotes()};$("filters").append(b)});
-$("saveToday").onclick=()=>{saved=isSaved(today)?saved.filter(x=>x!==today[0]):[...saved,today[0]];persist()};
-function shareText(){return "“"+today[0]+"” — DAILY DOSE"}
-$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(shareText());$("copy").textContent="Copied ✓";setTimeout(()=>$("copy").textContent="Copy text",1400)}catch(e){alert(shareText())}};
-$("share").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"DAILY DOSE",text:shareText()})}catch(e){}}else{$("copy").click()}};
+categories.forEach(c=>{const b=btn(c,()=>{selected=c;renderQuotes()});b.dataset.cat=c;$("filters").append(b)});
+$("saveToday").onclick=()=>toggleSave(today);
+
+let toastTimer;
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),1600)}
+function shareText(q=today){return "“"+q[0]+"” — "+author(q)+"\n\nDAILY DOSE · One thought. One day. A stronger mind."}
+async function writeClipboard(text){
+ try{await navigator.clipboard.writeText(text);return true}catch(e){}
+ try{const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;opacity:0";document.body.append(ta);ta.select();const ok=document.execCommand("copy");ta.remove();return ok}catch(e){return false}
+}
+async function copyQuote(q=today){if(await writeClipboard(shareText(q))){toast("Copied to clipboard")}else{prompt("Copy this quote:",shareText(q))}}
+async function shareQuote(q=today){if(navigator.share){try{await navigator.share({title:"DAILY DOSE",text:shareText(q),url:location.href.split("#")[0]})}catch(e){}}else{copyQuote(q)}}
+$("copy").onclick=async()=>{await copyQuote(today);$("copy").textContent="Copied ✓";setTimeout(()=>$("copy").textContent="Copy text",1400)};
+$("share").onclick=()=>shareQuote(today);
 renderToday();renderQuotes();renderSaved();
-if("serviceWorker" in navigator && location.protocol.startsWith("http")){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
+
+// Highlight the section currently in view
+const links=[...document.querySelectorAll("nav a")];
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle("active",l.hash==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});["today","explore","savedSection"].forEach(id=>io.observe($(id)))}
+
+// Offline indicator
+function netStatus(){$("offline").hidden=navigator.onLine}
+addEventListener("online",netStatus);addEventListener("offline",netStatus);netStatus();
+
+// Install prompt (Android / Chromium)
+let deferredInstall;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstall=e;$("install").hidden=false});
+$("install").onclick=async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice.catch(()=>{});deferredInstall=null;$("install").hidden=true};
+addEventListener("appinstalled",()=>{$("install").hidden=true;toast("DAILY DOSE installed")});
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).catch(()=>{}))}
 </script>
 </body></html>
